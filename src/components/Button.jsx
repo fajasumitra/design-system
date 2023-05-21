@@ -8,22 +8,19 @@ Button.propTypes = {
     target: propTypes.string,
     href: propTypes.string,
     className: propTypes.string,
-
+    isDisabled: propTypes.bool,
+    isLoading: propTypes.bool,
+    to: propTypes.string
 }
-
-//havent add isDisabled and isLoading
 
 export default function Button(props) {
     const className = [props.className]
-    // if (props.example) className.push ('')
 
     const navigate = useNavigate()
     
     const onClick = () => {
         if (props.onClick) props.onClick()
     }
-
-    const disabled = isLoading || buttonDisabled;
 
     if (props.type === 'link'){
         if (props.href){
@@ -33,9 +30,9 @@ export default function Button(props) {
                     className={className.join(' ')}  
                     target={props.target === "_blank" ? "_blank" : undefined} 
                     rel={props.target === "_blank" ? "noopener noreferrer" : undefined}
-                    disabled={disabled}
+                    disabled={props.isDisabled || props.isLoading ? true : false}
                 >
-                    {props.children}
+                    {`${props.children}`}
                 </a>
             )
         }
@@ -44,9 +41,9 @@ export default function Button(props) {
                 <button 
                     onClick={()=> navigate(props.to)} 
                     className={className.join(' ')}
-                    disabled={disabled}
+                    disabled={props.isDisabled || props.isLoading ? true : false}
                 >
-                    {props.children}
+                    {`${props.children}`}
                 </button>
             )
         }
@@ -56,9 +53,9 @@ export default function Button(props) {
             <button 
                 className={className.join(" ")} 
                 onClick= {onClick} 
-                disabled={disabled}
+                disabled={props.isDisabled || props.isLoading ? true : false}
             >
-                {props.children}
+                {`${props.children}`}
             </button>
         )
     }
