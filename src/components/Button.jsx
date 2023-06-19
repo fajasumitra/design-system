@@ -1,6 +1,15 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
+import { ImSpinner2 } from 'react-icons/im'
+
+//do npm install prop-types react-router-dom react-icons
+
+//<Button type="link" to="/register" className="classname" isDisabled isLoading>Register</Button>
+
+//<Button type="button" onClick={handleClick} className="classname" isDisabled isLoading>Register</Button>
+
+//<Button type="link" href="https://google.com" target="_blank" className="classname" isDisabled isLoading>Register</Button>
 
 Button.propTypes = {
     type: propTypes.oneOf(['button', 'link']),
@@ -30,9 +39,9 @@ export default function Button(props) {
                     className={className.join(' ')}  
                     target={props.target === "_blank" ? "_blank" : undefined} 
                     rel={props.target === "_blank" ? "noopener noreferrer" : undefined}
-                    disabled={props.isDisabled || props.isLoading ? true : false}
+                    disabled = {props.isDisabled || props.isLoading ? true : false}
                 >
-                    {`${props.children}`}
+                    {`${props.children}`}{props.isLoading ? <ImSpinner2 className='animate-spin' /> : null}
                 </a>
             )
         }
@@ -43,7 +52,7 @@ export default function Button(props) {
                     className={className.join(' ')}
                     disabled={props.isDisabled || props.isLoading ? true : false}
                 >
-                    {`${props.children}`}
+                    {`${props.children}`}{props.isLoading ? <ImSpinner2 className='animate-spin' /> : null}
                 </button>
             )
         }
@@ -55,7 +64,7 @@ export default function Button(props) {
                 onClick= {onClick} 
                 disabled={props.isDisabled || props.isLoading ? true : false}
             >
-                {`${props.children}`}
+                {`${props.children}`}{props.isLoading ? <ImSpinner2 className='animate-spin' /> : null}
             </button>
         )
     }
